@@ -20,6 +20,9 @@ public class ServiceController {
     @RequestMapping(value = "/registerUser", method = RequestMethod.POST)
     @ResponseBody
     public void registerUser(@RequestBody UserEntity user ) {
+
+
+        
         if(userRepository.findUserByEmail(user.getEmail()) == null) {
             userRepository.save(user);
         }
