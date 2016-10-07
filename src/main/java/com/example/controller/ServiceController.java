@@ -20,6 +20,7 @@ public class ServiceController {
     @RequestMapping(value = "/registerUser", method = RequestMethod.POST)
     @ResponseBody
     public void registerUser(@RequestBody UserEntity user ) {
+        //check if user already exists
         if(userRepository.findUserByEmail(user.getEmail()) == null) {
             userRepository.save(user);
         }
