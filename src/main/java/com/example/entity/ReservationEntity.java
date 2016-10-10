@@ -4,14 +4,14 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by matth on 7/10/2016.
+ * Created by matth on 10/10/2016.
  */
 @Entity
 @Table(name = "reservation", schema = "mydb", catalog = "")
 public class ReservationEntity {
     private int id;
-    private Timestamp startTime;
-    private Timestamp endTime;
+    private Timestamp starttime;
+    private Timestamp endtime;
     private String name;
 
     @Id
@@ -25,23 +25,23 @@ public class ReservationEntity {
     }
 
     @Basic
-    @Column(name = "startTime")
-    public Timestamp getStartTime() {
-        return startTime;
+    @Column(name = "starttime")
+    public Timestamp getStarttime() {
+        return starttime;
     }
 
-    public void setStartTime(Timestamp startTime) {
-        this.startTime = startTime;
+    public void setStarttime(Timestamp starttime) {
+        this.starttime = starttime;
     }
 
     @Basic
-    @Column(name = "endTime")
-    public Timestamp getEndTime() {
-        return endTime;
+    @Column(name = "endtime")
+    public Timestamp getEndtime() {
+        return endtime;
     }
 
-    public void setEndTime(Timestamp endTime) {
-        this.endTime = endTime;
+    public void setEndtime(Timestamp endtime) {
+        this.endtime = endtime;
     }
 
     @Basic
@@ -62,8 +62,8 @@ public class ReservationEntity {
         ReservationEntity that = (ReservationEntity) o;
 
         if (id != that.id) return false;
-        if (startTime != null ? !startTime.equals(that.startTime) : that.startTime != null) return false;
-        if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
+        if (starttime != null ? !starttime.equals(that.starttime) : that.starttime != null) return false;
+        if (endtime != null ? !endtime.equals(that.endtime) : that.endtime != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
 
         return true;
@@ -72,8 +72,8 @@ public class ReservationEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
-        result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
+        result = 31 * result + (starttime != null ? starttime.hashCode() : 0);
+        result = 31 * result + (endtime != null ? endtime.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }

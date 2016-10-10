@@ -5,14 +5,14 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by matth on 7/10/2016.
+ * Created by matth on 10/10/2016.
  */
 public class OrderHasMenuitemEntityPK implements Serializable {
     private int orderId;
     private int makerId;
     private int menuItemId;
 
-    @Column(name = "orderId")
+    @Column(name = "order_id")
     @Id
     public int getOrderId() {
         return orderId;
@@ -22,7 +22,7 @@ public class OrderHasMenuitemEntityPK implements Serializable {
         this.orderId = orderId;
     }
 
-    @Column(name = "makerId")
+    @Column(name = "maker_id")
     @Id
     public int getMakerId() {
         return makerId;
@@ -32,7 +32,7 @@ public class OrderHasMenuitemEntityPK implements Serializable {
         this.makerId = makerId;
     }
 
-    @Column(name = "menuItemId")
+    @Column(name = "menu_item_id")
     @Id
     public int getMenuItemId() {
         return menuItemId;

@@ -5,13 +5,13 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by matth on 7/10/2016.
+ * Created by matth on 10/10/2016.
  */
 public class ReservationHasTableEntityPK implements Serializable {
     private int reservationId;
     private int tableId;
 
-    @Column(name = "reservationId")
+    @Column(name = "reservation_id")
     @Id
     public int getReservationId() {
         return reservationId;
@@ -21,7 +21,7 @@ public class ReservationHasTableEntityPK implements Serializable {
         this.reservationId = reservationId;
     }
 
-    @Column(name = "tableId")
+    @Column(name = "table_id")
     @Id
     public int getTableId() {
         return tableId;

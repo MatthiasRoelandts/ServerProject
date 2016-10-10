@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Time;
 
 /**
- * Created by matth on 7/10/2016.
+ * Created by matth on 10/10/2016.
  */
 @Entity
 @Table(name = "menuitem", schema = "mydb", catalog = "")
@@ -15,7 +15,7 @@ public class MenuitemEntity {
     private String description;
     private double price;
     private Integer btw;
-    private Time avrTime;
+    private Time avrtime;
     private int itemCategoryId;
 
     @Id
@@ -69,17 +69,17 @@ public class MenuitemEntity {
     }
 
     @Basic
-    @Column(name = "avrTime")
-    public Time getAvrTime() {
-        return avrTime;
+    @Column(name = "avrtime")
+    public Time getAvrtime() {
+        return avrtime;
     }
 
-    public void setAvrTime(Time avrTime) {
-        this.avrTime = avrTime;
+    public void setAvrtime(Time avrtime) {
+        this.avrtime = avrtime;
     }
 
     @Id
-    @Column(name = "ItemCategory_id")
+    @Column(name = "item_category_id")
     public int getItemCategoryId() {
         return itemCategoryId;
     }
@@ -101,7 +101,7 @@ public class MenuitemEntity {
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (btw != null ? !btw.equals(that.btw) : that.btw != null) return false;
-        if (avrTime != null ? !avrTime.equals(that.avrTime) : that.avrTime != null) return false;
+        if (avrtime != null ? !avrtime.equals(that.avrtime) : that.avrtime != null) return false;
 
         return true;
     }
@@ -116,7 +116,7 @@ public class MenuitemEntity {
         temp = Double.doubleToLongBits(price);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (btw != null ? btw.hashCode() : 0);
-        result = 31 * result + (avrTime != null ? avrTime.hashCode() : 0);
+        result = 31 * result + (avrtime != null ? avrtime.hashCode() : 0);
         result = 31 * result + itemCategoryId;
         return result;
     }

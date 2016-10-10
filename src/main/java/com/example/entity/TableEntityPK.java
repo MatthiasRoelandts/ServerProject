@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by matth on 7/10/2016.
+ * Created by matth on 10/10/2016.
  */
 public class TableEntityPK implements Serializable {
     private int id;
@@ -21,7 +21,7 @@ public class TableEntityPK implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "restaurantId")
+    @Column(name = "restaurant_id")
     @Id
     public int getRestaurantId() {
         return restaurantId;

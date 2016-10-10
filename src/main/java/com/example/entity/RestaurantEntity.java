@@ -3,7 +3,7 @@ package com.example.entity;
 import javax.persistence.*;
 
 /**
- * Created by matth on 7/10/2016.
+ * Created by matth on 10/10/2016.
  */
 @Entity
 @Table(name = "restaurant", schema = "mydb", catalog = "")
@@ -90,7 +90,7 @@ public class RestaurantEntity {
     }
 
     @Id
-    @Column(name = "categoryRestaurantId")
+    @Column(name = "category_restaurant_id")
     public int getCategoryRestaurantId() {
         return categoryRestaurantId;
     }
@@ -100,7 +100,7 @@ public class RestaurantEntity {
     }
 
     @Id
-    @Column(name = "ownerId")
+    @Column(name = "owner_id")
     public int getOwnerId() {
         return ownerId;
     }

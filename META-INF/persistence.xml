@@ -2,7 +2,8 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
     <persistence-unit name="persistenceUnit">
-        <class>com.example.entity.CategoryitemEntity</class>
+        <class>com.example.entity.UserEntity</class>
+        <class>com.example.entity.PersonEntity</class>
         <class>com.example.entity.CategoryrestaurantEntity</class>
         <class>com.example.entity.MenuitemEntity</class>
         <class>com.example.entity.OrderEntity</class>
@@ -10,7 +11,6 @@
         <class>com.example.entity.ReservationEntity</class>
         <class>com.example.entity.RestaurantEntity</class>
         <class>com.example.entity.TableEntity</class>
-        <class>com.example.entity.UserEntity</class>
         <class>com.example.entity.CustomerEntity</class>
         <class>com.example.entity.ItemcategoryEntity</class>
         <class>com.example.entity.OwnerEntity</class>

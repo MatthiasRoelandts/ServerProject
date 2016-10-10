@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by matth on 7/10/2016.
+ * Created by matth on 10/10/2016.
  */
 public class MenuitemEntityPK implements Serializable {
     private int id;
@@ -21,7 +21,7 @@ public class MenuitemEntityPK implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "ItemCategory_id")
+    @Column(name = "item_category_id")
     @Id
     public int getItemCategoryId() {
         return itemCategoryId;

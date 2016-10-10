@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by matth on 7/10/2016.
+ * Created by matth on 10/10/2016.
  */
 public class RestaurantEntityPK implements Serializable {
     private int id;
@@ -22,7 +22,7 @@ public class RestaurantEntityPK implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "categoryRestaurantId")
+    @Column(name = "category_restaurant_id")
     @Id
     public int getCategoryRestaurantId() {
         return categoryRestaurantId;
@@ -32,7 +32,7 @@ public class RestaurantEntityPK implements Serializable {
         this.categoryRestaurantId = categoryRestaurantId;
     }
 
-    @Column(name = "ownerId")
+    @Column(name = "owner_id")
     @Id
     public int getOwnerId() {
         return ownerId;

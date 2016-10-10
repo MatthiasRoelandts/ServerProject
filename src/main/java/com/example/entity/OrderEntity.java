@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by matth on 7/10/2016.
+ * Created by matth on 10/10/2016.
  */
 @Entity
 @Table(name = "order", schema = "mydb", catalog = "")
@@ -57,7 +57,7 @@ public class OrderEntity {
     }
 
     @Id
-    @Column(name = "User_id")
+    @Column(name = "user_id")
     public int getUserId() {
         return userId;
     }

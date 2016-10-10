@@ -13,7 +13,7 @@ public class ServiceController {
     private UserRepository userRepository;
 
     @Autowired
-    public ServiceController( UserRepository userRepository) {
+    public ServiceController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -21,8 +21,11 @@ public class ServiceController {
     @ResponseBody
     public void registerUser(@RequestBody UserEntity user ) {
         //check if user already exists
-        if(userRepository.findUserByEmail(user.getEmail()) == null) {
-            userRepository.save(user);
-        }
+        System.out.println("hey sexy\n");
+        System.out.println("jij bent:" + user.getName());
+        System.out.println("jij bent:" + user.getLastname());
+        System.out.println("jij bent:" + user.getEmail());
+        System.out.println("jij bent:" + user.getPassword());
+        userRepository.save(user);
     }
 }

@@ -3,21 +3,18 @@ package com.example.entity;
 import javax.persistence.*;
 
 /**
- * Created by matth on 7/10/2016.
+ * Created by matth on 10/10/2016.
  */
 @Entity
-@NamedQuery(name = "findUserByEmail", query = "SELECT k FROM UserEntity k WHERE k.email = ?1")
 @Table(name = "user", schema = "mydb", catalog = "")
-@IdClass(UserEntityPK.class)
 public class UserEntity {
     private int id;
     private String name;
-    private String lastName;
+    private String lastname;
     private String email;
     private String phone;
     private String password;
     private String token;
-    private int userRightId;
 
     @Id
     @Column(name = "id")
@@ -40,13 +37,13 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "lastName")
-    public String getLastName() {
-        return lastName;
+    @Column(name = "lastname")
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     @Basic
@@ -89,16 +86,6 @@ public class UserEntity {
         this.token = token;
     }
 
-    @Id
-    @Column(name = "userRightId")
-    public int getUserRightId() {
-        return userRightId;
-    }
-
-    public void setUserRightId(int userRightId) {
-        this.userRightId = userRightId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,9 +94,8 @@ public class UserEntity {
         UserEntity that = (UserEntity) o;
 
         if (id != that.id) return false;
-        if (userRightId != that.userRightId) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
+        if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
@@ -122,12 +108,11 @@ public class UserEntity {
     public int hashCode() {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (token != null ? token.hashCode() : 0);
-        result = 31 * result + userRightId;
         return result;
     }
 }

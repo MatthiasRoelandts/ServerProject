@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Created by matth on 7/10/2016.
+ * Created by matth on 10/10/2016.
  */
 @Entity
 @Table(name = "owner", schema = "mydb", catalog = "")
@@ -14,7 +14,7 @@ public class OwnerEntity {
     private int userId;
 
     @Id
-    @Column(name = "userId")
+    @Column(name = "user_id")
     public int getUserId() {
         return userId;
     }

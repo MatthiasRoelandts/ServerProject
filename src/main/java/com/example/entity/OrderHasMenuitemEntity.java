@@ -3,7 +3,7 @@ package com.example.entity;
 import javax.persistence.*;
 
 /**
- * Created by matth on 7/10/2016.
+ * Created by matth on 10/10/2016.
  */
 @Entity
 @Table(name = "order_has_menuitem", schema = "mydb", catalog = "")
@@ -18,7 +18,7 @@ public class OrderHasMenuitemEntity {
     private Integer amount;
 
     @Id
-    @Column(name = "orderId")
+    @Column(name = "order_id")
     public int getOrderId() {
         return orderId;
     }
@@ -28,7 +28,7 @@ public class OrderHasMenuitemEntity {
     }
 
     @Id
-    @Column(name = "makerId")
+    @Column(name = "maker_id")
     public int getMakerId() {
         return makerId;
     }
@@ -38,7 +38,7 @@ public class OrderHasMenuitemEntity {
     }
 
     @Id
-    @Column(name = "menuItemId")
+    @Column(name = "menu_item_id")
     public int getMenuItemId() {
         return menuItemId;
     }
