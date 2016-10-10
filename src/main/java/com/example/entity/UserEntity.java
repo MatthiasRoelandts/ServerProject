@@ -6,6 +6,7 @@ import javax.persistence.*;
  * Created by matth on 10/10/2016.
  */
 @Entity
+@NamedQuery(name = "findUserByEmail", query = "SELECT k FROM UserEntity k WHERE k.email = ?1")
 @Table(name = "user", schema = "mydb", catalog = "")
 public class UserEntity {
     private int id;
