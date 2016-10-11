@@ -3,7 +3,6 @@
 
     <persistence-unit name="persistenceUnit">
         <class>com.example.entity.UserEntity</class>
-        <class>com.example.entity.PersonEntity</class>
         <class>com.example.entity.CategoryrestaurantEntity</class>
         <class>com.example.entity.MenuitemEntity</class>
         <class>com.example.entity.OrderEntity</class>
@@ -20,8 +19,8 @@
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/mydb"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-            <property name="hibernate.connection.username"/>
-            <property name="hibernate.connection.password"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value="root"/>
         </properties>
     </persistence-unit>
 </persistence>
