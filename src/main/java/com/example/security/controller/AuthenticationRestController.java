@@ -1,8 +1,13 @@
 package com.example.security.controller;
 
+import com.example.entity.CustomerEntity;
+import com.example.entity.OwnerEntity;
+import com.example.entity.UserEntity;
+import com.example.entity.WaiterEntity;
 import com.example.security.JwtAuthenticationRequest;
 import com.example.security.model.JwtAuthenticationToken;
 import com.example.security.util.JwtTokenUtil;
+import com.sun.deploy.util.Waiter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +44,7 @@ public class AuthenticationRestController {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @RequestMapping(value = "/auth", method = RequestMethod.POST)
+    @RequestMapping(value = "/auth/login", method = RequestMethod.POST)
     public ResponseEntity createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest){
 
         System.out.println("The username is " + authenticationRequest.getEmail() +" the password is" + authenticationRequest.getPassword());
@@ -59,6 +64,7 @@ public class AuthenticationRestController {
         //return ResponseEntity.ok(new JwtAuthenticationToken(token));
         return ResponseEntity.ok(new JwtAuthenticationToken(token));
     }
+
 
 
 }

@@ -1,42 +1,28 @@
 package com.example.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.apache.tomcat.jni.User;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
 
 /**
  * Created by matth on 10/10/2016.
  */
 @Entity
-@Table(name = "owner", schema = "mydb", catalog = "")
-public class OwnerEntity {
-    private int userId;
+@Table(name = "owner")
+@PrimaryKeyJoinColumn(name ="user_id",referencedColumnName = "id")
+public class OwnerEntity extends UserEntity{
 
-    @Id
-    @Column(name = "user_id")
-    public int getUserId() {
-        return userId;
+    private BigDecimal total_earned;
+
+    @Basic
+    @Column(name = "total_earned")
+    public BigDecimal getTotal_earned() {
+        return total_earned;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setTotal_earned(BigDecimal total_earned) {
+        this.total_earned = total_earned;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        OwnerEntity that = (OwnerEntity) o;
-
-        if (userId != that.userId) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return userId;
-    }
 }

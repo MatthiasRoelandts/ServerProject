@@ -7,7 +7,8 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQuery(name = "findByEmail", query = "SELECT k FROM UserEntity k WHERE k.email = ?1")
-@Table(name = "user", schema = "mydb", catalog = "")
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "user")
 public class UserEntity {
     private int id;
     private String name;
@@ -18,6 +19,7 @@ public class UserEntity {
     private String token;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     public int getId() {
         return id;
