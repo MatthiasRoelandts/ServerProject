@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by matth on 10/10/2016.
  */
 @Entity
-@Table(name = "restaurant", schema = "mydb", catalog = "")
+@Table(name = "restaurant", schema = "mydb")
 @IdClass(RestaurantEntityPK.class)
 public class RestaurantEntity {
     private int id;
@@ -19,7 +19,13 @@ public class RestaurantEntity {
     private int categoryRestaurantId;
     private int ownerId;
 
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private OwnerEntity owner;
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     public int getId() {
         return id;
@@ -107,6 +113,14 @@ public class RestaurantEntity {
 
     public void setOwnerId(int ownerId) {
         this.ownerId = ownerId;
+    }
+
+    public OwnerEntity getOwner() {
+        return this.owner;
+    }
+
+    public void setOwner(OwnerEntity owner) {
+        this.owner = owner;
     }
 
     @Override

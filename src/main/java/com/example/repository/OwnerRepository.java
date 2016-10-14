@@ -7,4 +7,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface OwnerRepository extends UserBaseRepository<OwnerEntity>{
 
+
 }
