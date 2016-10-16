@@ -1,9 +1,7 @@
 package com.example.controller;
 
-import com.example.entity.CustomerEntity;
-import com.example.entity.OwnerEntity;
-import com.example.entity.UserEntity;
-import com.example.entity.WaiterEntity;
+import com.example.entity.*;
+import com.example.repository.MenuItemRepository;
 import com.example.repository.OwnerRepository;
 import com.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,23 +23,21 @@ import java.sql.SQLIntegrityConstraintViolationException;
 public class ServiceController {
 
 
-    
-
-
     private OwnerRepository ownerRepository;
     private UserRepository userRepository;
+    private MenuItemRepository menuItemRepository;
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
-    public ServiceController(OwnerRepository ownerRepository,UserRepository userRepository) {
+    public ServiceController(OwnerRepository ownerRepository, UserRepository userRepository, MenuItemRepository menuItemRepository) {
         this.ownerRepository = ownerRepository;
         this.userRepository = userRepository;
+        this.menuItemRepository = menuItemRepository;
     }
 
 
     @RequestMapping(value = "/auth/register/owner", method = RequestMethod.POST)
-    public ResponseEntity registerOwner(@RequestBody OwnerEntity owner){
-
+    public ResponseEntity registerOwner(@RequestBody OwnerEntity owner) {
 
 
         System.out.println("The incoming user has name " + owner.getName() + "EArner = " + owner.getTotal_earned());
@@ -50,28 +46,35 @@ public class ServiceController {
         try {
             ownerRepository.save(owner);
             return new ResponseEntity(HttpStatus.ACCEPTED);
-        } catch(DataIntegrityViolationException e){
+        } catch (DataIntegrityViolationException e) {
             // return 409 response for duplicate email address
             return new ResponseEntity(HttpStatus.CONFLICT);
-        } catch (ResourceAccessException e){
+        } catch (ResourceAccessException e) {
             //For any other problem
-            return  new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
 
     }
 
     @RequestMapping(value = "/auth/register/waiter", method = RequestMethod.POST)
-    public ResponseEntity registerWaiter(@RequestBody WaiterEntity waiter){
+    public ResponseEntity registerWaiter(@RequestBody WaiterEntity waiter) {
 
 
         return ResponseEntity.ok("");
     }
 
     @RequestMapping(value = "/auth/register/customer", method = RequestMethod.POST)
-    public ResponseEntity registerCustomer(@RequestBody CustomerEntity owner){
+    public ResponseEntity registerCustomer(@RequestBody CustomerEntity owner) {
 
 
+        return ResponseEntity.ok("");
+    }
+
+    @RequestMapping(value = "/create/item", method = RequestMethod.POST)
+    public ResponseEntity createNewItem(@RequestBody MenuitemEntity item) {
+
+        System.out.println("The incoming item has title " + item.getTitle());
         return ResponseEntity.ok("");
     }
 }
