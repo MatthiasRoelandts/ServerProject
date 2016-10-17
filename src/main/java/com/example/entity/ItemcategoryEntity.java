@@ -8,11 +8,14 @@ import javax.persistence.*;
 @Entity
 @Table(name = "itemcategory", schema = "mydb", catalog = "")
 public class ItemcategoryEntity {
-    private int id;
-    private String name;
 
     @Id
     @Column(name = "id")
+    @GeneratedValue
+    private int id;
+
+    private String name;
+
     public int getId() {
         return id;
     }

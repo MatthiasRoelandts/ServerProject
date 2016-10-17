@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.entity.*;
+import com.example.repository.ItemCategoryRepository;
 import com.example.repository.MenuItemRepository;
 import com.example.repository.OwnerRepository;
 import com.example.repository.UserRepository;
@@ -13,8 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.ResourceAccessException;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 
 /**
  * Created by matth on 7/10/2016.
@@ -26,15 +26,16 @@ public class ServiceController {
     private OwnerRepository ownerRepository;
     private UserRepository userRepository;
     private MenuItemRepository menuItemRepository;
+    private ItemCategoryRepository itemCategoryRepository;
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
-    public ServiceController(OwnerRepository ownerRepository, UserRepository userRepository, MenuItemRepository menuItemRepository) {
+    public ServiceController(OwnerRepository ownerRepository, UserRepository userRepository, MenuItemRepository menuItemRepository, ItemCategoryRepository itemCategoryRepository) {
         this.ownerRepository = ownerRepository;
         this.userRepository = userRepository;
         this.menuItemRepository = menuItemRepository;
+        this.itemCategoryRepository = itemCategoryRepository;
     }
-
 
     @RequestMapping(value = "/auth/register/owner", method = RequestMethod.POST)
     public ResponseEntity registerOwner(@RequestBody OwnerEntity owner) {
@@ -75,6 +76,40 @@ public class ServiceController {
     public ResponseEntity createNewItem(@RequestBody MenuitemEntity item) {
 
         System.out.println("The incoming item has title " + item.getTitle());
-        return ResponseEntity.ok("");
+        System.out.println("and description " + item.getDescription());
+        System.out.println("and price " + item.getPrice());
+        System.out.println("and categoryID : " + item.getItemCategoryId());
+        try {
+            MenuitemEntity createdItem = menuItemRepository.save(item);
+            menuItemRepository.flush();
+            System.out.println("created ID = " + createdItem.getId());
+            return new ResponseEntity(HttpStatus.ACCEPTED);
+        } catch (ResourceAccessException e) {
+            //For any other problem
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/create/itemcategory", method = RequestMethod.POST)
+    public ResponseEntity<ItemcategoryEntity> createNewItemCategory(@RequestBody ItemcategoryEntity itemCategory) {
+
+        System.out.println("The incoming itemCategory has id " + itemCategory.getId());
+        System.out.println("and name " + itemCategory.getName());
+        ItemcategoryEntity createdCategory = null;
+        try {
+            createdCategory = itemCategoryRepository.save(itemCategory);
+            itemCategoryRepository.flush();
+            System.out.println("created ID = " + createdCategory.getId());
+            return new ResponseEntity(createdCategory, HttpStatus.ACCEPTED);
+        } catch (ResourceAccessException e) {
+            //For any other problem
+            return new ResponseEntity(createdCategory, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/ItemCategory/all", method = RequestMethod.GET)
+    public ResponseEntity<List<ItemcategoryEntity>> getAllItemCategories() {
+        List<ItemcategoryEntity> entityList = itemCategoryRepository.findAll();
+        return new ResponseEntity<>(entityList, HttpStatus.OK);
     }
 }
