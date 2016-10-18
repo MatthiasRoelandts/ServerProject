@@ -15,7 +15,6 @@ import java.util.List;
 public class OwnerEntity extends UserEntity{
     private BigDecimal total_earned;
 
-    @OneToMany(mappedBy = "owner")
     private List<RestaurantEntity> businesses;
 
     @Basic
@@ -29,12 +28,21 @@ public class OwnerEntity extends UserEntity{
     }
 
 
-    public void addBusiness(RestaurantEntity business){
-        businesses.add(business);
-    }
+    /*public void addBusiness(RestaurantEntity business){
 
+        this.businesses.add(business);
+    }*/
+
+    //@OneToMany(mappedBy = "owner")
+    @OneToMany
+    @JoinColumn(name="owner_id", referencedColumnName="user_id")
     public List<RestaurantEntity> getBusinesses(){
         return businesses;
+    }
+
+    public void setBusinesses(List<RestaurantEntity> businesses){
+
+        this.businesses = businesses;
     }
 
 }

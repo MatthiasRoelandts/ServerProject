@@ -5,13 +5,14 @@ import com.example.entity.RestaurantEntity;
 import com.example.repository.BusinessRepository;
 import com.example.repository.OwnerRepository;
 import com.example.repository.UserRepository;
+import com.example.security.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by michael on 14/10/2016.
@@ -29,16 +30,46 @@ public class BusinessServiceController {
         this.businessRepository = businessRepository;
     }
 
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
     @RequestMapping(value = "/addbusiness",method = RequestMethod.POST)
     public ResponseEntity addBusiness(@RequestBody RestaurantEntity business){
-        OwnerEntity owner = ownerRepository.findOne(business.getOwnerId());
-        business.setOwner(owner);
-        owner.addBusiness(business);
+
+        System.out.println("The owner email is" + business.getOwnerEmail());
+        String ownerEmail = business.getOwnerEmail();
+        OwnerEntity owner = ownerRepository.findUserByEmail(ownerEmail);
+        business.setOwnerId(owner.getId());
+        business.setCategoryRestaurantId(1);
+        List<RestaurantEntity> rList;
+        rList = owner.getBusinesses();
+        rList.add(business);
+        owner.setBusinesses(rList);
+
         try {
             businessRepository.save(business);
+            return new ResponseEntity(HttpStatus.CREATED);
+
         } catch (Exception e) {
             e.printStackTrace();
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity(HttpStatus.CREATED);
+
+    }
+    /*
+    * Get's the businesses for a particular owner*/
+    @RequestMapping(value = "/getbusinesses",method = RequestMethod.GET)
+    public ResponseEntity getBusinesses(@RequestHeader(value = "Authorization") String token){
+
+        List<RestaurantEntity> businessesList = null;
+        try {
+            OwnerEntity owner = ownerRepository.findUserByEmail(jwtTokenUtil.getUsernameFromToken(token));
+            businessesList = owner.getBusinesses();
+            return new ResponseEntity(businessesList,HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(null,HttpStatus.BAD_REQUEST);
+        }
+
     }
 }

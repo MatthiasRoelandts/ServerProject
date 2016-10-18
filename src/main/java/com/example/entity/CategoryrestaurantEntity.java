@@ -1,6 +1,7 @@
 package com.example.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by matth on 10/10/2016.
@@ -10,8 +11,10 @@ import javax.persistence.*;
 public class CategoryrestaurantEntity {
     private int id;
     private String name;
+    private List<RestaurantEntity> businessCategories;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     public int getId() {
         return id;
@@ -29,6 +32,16 @@ public class CategoryrestaurantEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @OneToMany
+    @JoinColumn(name="category_restaurant_id", referencedColumnName="id")
+    public List<RestaurantEntity> getBusinessCategories(){
+        return businessCategories;
+    }
+    public void setBusinessCategories(List<RestaurantEntity> businessCategories){
+
+        this.businessCategories = businessCategories;
     }
 
     @Override

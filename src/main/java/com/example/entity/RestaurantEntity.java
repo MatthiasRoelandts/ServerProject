@@ -1,14 +1,15 @@
 package com.example.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by matth on 10/10/2016.
  */
 @Entity
 @Table(name = "restaurant", schema = "mydb")
-@IdClass(RestaurantEntityPK.class)
-public class RestaurantEntity {
+//@IdClass(RestaurantEntityPK.class)
+public class RestaurantEntity implements Serializable{
     private int id;
     private String name;
     private String info;
@@ -19,9 +20,10 @@ public class RestaurantEntity {
     private int categoryRestaurantId;
     private int ownerId;
 
+    //owner email is not a mapped class -> mark it transient
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    private String ownerEmail;
+
     private OwnerEntity owner;
 
     @Id
@@ -95,7 +97,7 @@ public class RestaurantEntity {
         this.rating = rating;
     }
 
-    @Id
+
     @Column(name = "category_restaurant_id")
     public int getCategoryRestaurantId() {
         return categoryRestaurantId;
@@ -105,7 +107,6 @@ public class RestaurantEntity {
         this.categoryRestaurantId = categoryRestaurantId;
     }
 
-    @Id
     @Column(name = "owner_id")
     public int getOwnerId() {
         return ownerId;
@@ -115,13 +116,16 @@ public class RestaurantEntity {
         this.ownerId = ownerId;
     }
 
-    public OwnerEntity getOwner() {
-        return this.owner;
+    @Transient
+    public String getOwnerEmail() {
+        return ownerEmail;
     }
 
-    public void setOwner(OwnerEntity owner) {
-        this.owner = owner;
+    public void setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
