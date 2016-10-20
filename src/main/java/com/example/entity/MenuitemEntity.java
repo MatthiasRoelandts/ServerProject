@@ -7,7 +7,8 @@ import java.sql.Time;
  * Created by matth on 10/10/2016.
  */
 @Entity
-@Table(name = "menuitem", schema = "mydb", catalog = "")
+@NamedQuery(name = "findByItemCategoryId", query = "SELECT e FROM MenuitemEntity e WHERE e.itemCategoryId = ?1")
+@Table(name = "menuitem", schema = "mydb")
 @IdClass(MenuitemEntityPK.class)
 public class MenuitemEntity {
     private int id;

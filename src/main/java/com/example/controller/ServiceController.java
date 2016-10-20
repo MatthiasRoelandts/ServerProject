@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.ResourceAccessException;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -54,8 +56,6 @@ public class ServiceController {
             //For any other problem
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
-
-
     }
 
     @RequestMapping(value = "/auth/register/waiter", method = RequestMethod.POST)
@@ -111,5 +111,28 @@ public class ServiceController {
     public ResponseEntity<List<ItemcategoryEntity>> getAllItemCategories() {
         List<ItemcategoryEntity> entityList = itemCategoryRepository.findAll();
         return new ResponseEntity<>(entityList, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/MenuItem/all", method = RequestMethod.GET)
+    public ResponseEntity<List<MenuitemEntity>> getAllMenuItems() {
+        List<MenuitemEntity> entityList = menuItemRepository.findAll();
+        return new ResponseEntity<>(entityList, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/MenuItem/category/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<MenuitemEntity>> getMenuItemByCategory(@PathVariable Integer id) {
+        List<MenuitemEntity> entityList = menuItemRepository.findByItemCategoryId(id);
+        return new ResponseEntity<>(entityList, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/Menu/all", method = RequestMethod.GET)
+    public ResponseEntity<HashMap<ItemcategoryEntity, List<MenuitemEntity>>> getAllMenu() {
+        HashMap<ItemcategoryEntity, List<MenuitemEntity>> entityMap = new HashMap<>();
+        List<ItemcategoryEntity> categoryList = itemCategoryRepository.findAll();
+        for(ItemcategoryEntity category: categoryList) {
+            ArrayList<MenuitemEntity> itemList = menuItemRepository.findByItemCategoryId(category.getId());
+            entityMap.put(category, itemList);
+        }
+        return new ResponseEntity<>(entityMap, HttpStatus.OK);
     }
 }
