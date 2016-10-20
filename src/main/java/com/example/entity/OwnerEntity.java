@@ -14,7 +14,6 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name ="user_id",referencedColumnName = "id")
 public class OwnerEntity extends UserEntity{
     private BigDecimal total_earned;
-
     private List<RestaurantEntity> businesses;
 
     @Basic
@@ -27,15 +26,8 @@ public class OwnerEntity extends UserEntity{
         this.total_earned = total_earned;
     }
 
-
-    /*public void addBusiness(RestaurantEntity business){
-
-        this.businesses.add(business);
-    }*/
-
-    //@OneToMany(mappedBy = "owner")
     @OneToMany
-    @JoinColumn(name="owner_id", referencedColumnName="user_id")
+    @JoinColumn(name="owner_id", referencedColumnName="user_id",insertable = false, updatable = false)
     public List<RestaurantEntity> getBusinesses(){
         return businesses;
     }
@@ -44,5 +36,4 @@ public class OwnerEntity extends UserEntity{
 
         this.businesses = businesses;
     }
-
 }

@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestClientException;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class BusinessServiceController {
     private JwtTokenUtil jwtTokenUtil;
 
     @RequestMapping(value = "/addbusiness",method = RequestMethod.POST)
-    public ResponseEntity addBusiness(@RequestBody RestaurantEntity business){
+    public ResponseEntity<RestaurantEntity> addBusiness(@RequestBody RestaurantEntity business){
 
         System.out.println("The owner email is" + business.getOwnerEmail());
         String ownerEmail = business.getOwnerEmail();
@@ -48,13 +50,13 @@ public class BusinessServiceController {
 
         try {
             businessRepository.save(business);
-            return new ResponseEntity(HttpStatus.CREATED);
+            businessRepository.flush();
+            return new ResponseEntity(business,HttpStatus.CREATED);
 
-        } catch (Exception e) {
+        } catch (RestClientException e) {
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
-
     }
     /*
     * Get's the businesses for a particular owner*/
@@ -70,6 +72,5 @@ public class BusinessServiceController {
             e.printStackTrace();
             return new ResponseEntity(null,HttpStatus.BAD_REQUEST);
         }
-
     }
 }

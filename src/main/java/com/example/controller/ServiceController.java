@@ -38,7 +38,6 @@ public class ServiceController {
         this.userRepository = userRepository;
     }
 
-
     @RequestMapping(value = "/auth/register/owner", method = RequestMethod.POST)
     public ResponseEntity registerOwner(@RequestBody OwnerEntity owner){
 
@@ -57,8 +56,6 @@ public class ServiceController {
             //For any other problem
             return  new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
-
-
     }
 
     @RequestMapping(value = "/auth/register/waiter", method = RequestMethod.POST)
@@ -70,8 +67,6 @@ public class ServiceController {
 
     @RequestMapping(value = "/auth/register/customer", method = RequestMethod.POST)
     public ResponseEntity registerCustomer(@RequestBody CustomerEntity owner){
-
-
         return ResponseEntity.ok("");
     }
 }

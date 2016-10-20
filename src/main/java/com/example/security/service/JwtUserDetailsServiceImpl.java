@@ -25,7 +25,6 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
 
         UserEntity user = this.userRepository.findUserByEmail(email);
 
-
         //When the user is found in the database -> create a new authenticated user
         if(user == null){
             throw new UsernameNotFoundException(String.format("No user is found with email '%s'.",email));
