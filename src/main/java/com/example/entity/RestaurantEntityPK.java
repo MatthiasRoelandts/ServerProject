@@ -22,7 +22,7 @@ public class RestaurantEntityPK implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "category_restaurant_id")
+    /*@Column(name = "category_restaurant_id")
     @Id
     public int getCategoryRestaurantId() {
         return categoryRestaurantId;
@@ -32,6 +32,8 @@ public class RestaurantEntityPK implements Serializable {
         this.categoryRestaurantId = categoryRestaurantId;
     }
 
+    */
+    /*
     @Column(name = "owner_id")
     @Id
     public int getOwnerId() {
@@ -40,7 +42,7 @@ public class RestaurantEntityPK implements Serializable {
 
     public void setOwnerId(int ownerId) {
         this.ownerId = ownerId;
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {
@@ -50,7 +52,7 @@ public class RestaurantEntityPK implements Serializable {
         RestaurantEntityPK that = (RestaurantEntityPK) o;
 
         if (id != that.id) return false;
-        if (categoryRestaurantId != that.categoryRestaurantId) return false;
+        //if (categoryRestaurantId != that.categoryRestaurantId) return false;
         if (ownerId != that.ownerId) return false;
 
         return true;
@@ -59,8 +61,8 @@ public class RestaurantEntityPK implements Serializable {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + categoryRestaurantId;
-        result = 31 * result + ownerId;
+        //result = 31 * result + categoryRestaurantId;
+        //result = 31 * result + ownerId;
         return result;
     }
 }

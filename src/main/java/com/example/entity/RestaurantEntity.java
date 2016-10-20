@@ -1,14 +1,19 @@
 package com.example.entity;
 
+import com.sun.deploy.util.Waiter;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by matth on 10/10/2016.
  */
 @Entity
-@Table(name = "restaurant", schema = "mydb", catalog = "")
-@IdClass(RestaurantEntityPK.class)
-public class RestaurantEntity {
+@Table(name = "restaurant", schema = "mydb")
+public class RestaurantEntity implements Serializable{
+
+
     private int id;
     private String name;
     private String info;
@@ -19,12 +24,17 @@ public class RestaurantEntity {
     private int categoryRestaurantId;
     private int ownerId;
 
+    //owner email is not a mapped class -> mark it transient
+
+    private String ownerEmail;
+    private List<WaiterEntity> personel;
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -89,7 +99,7 @@ public class RestaurantEntity {
         this.rating = rating;
     }
 
-    @Id
+    @Basic
     @Column(name = "category_restaurant_id")
     public int getCategoryRestaurantId() {
         return categoryRestaurantId;
@@ -99,7 +109,7 @@ public class RestaurantEntity {
         this.categoryRestaurantId = categoryRestaurantId;
     }
 
-    @Id
+    @Basic
     @Column(name = "owner_id")
     public int getOwnerId() {
         return ownerId;
@@ -108,6 +118,27 @@ public class RestaurantEntity {
     public void setOwnerId(int ownerId) {
         this.ownerId = ownerId;
     }
+
+    @Transient
+    public String getOwnerEmail() {
+        return ownerEmail;
+    }
+
+    public void setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
+    }
+
+    @OneToMany
+    @JoinColumn(name="restaurant_id", referencedColumnName="id")
+    public List<WaiterEntity> getPersonnel(){
+        return personel;
+    }
+
+    public void setPersonnel(List<WaiterEntity> personel){
+        this.personel = personel;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {
