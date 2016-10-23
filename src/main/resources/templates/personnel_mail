@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+    <body>
+    <h3>Dear ${personnel.firstName} ${personnel.lastName},</h3>
+
+    <div>
+        <p>you've been successfully registered to work as ${personnel.jobDescription} in ${personnel.businessName}</p>
+    </div>
+
+    <div>
+        <p>You can log in the app using :</p>
+        <p>email address  : ${personnel.email}</p>
+        <p>password : ${personnel.password}</p>
+    </div>
+    <p>
+        Regards, <br />
+        <em>The ${personnel.businessName} management</em>
+    </p>
+    </body>
+</html>

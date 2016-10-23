@@ -21,6 +21,7 @@ public class WaiterEntity extends UserEntity{
     private String city;
     private Integer postal;
     private int restaurant_id;
+    private String job_description;
 
 
     @Basic
@@ -70,6 +71,16 @@ public class WaiterEntity extends UserEntity{
 
     public void setPostal(Integer postal) {
         this.postal = postal;
+    }
+
+    @Basic
+    @Column(name = "job_description")
+    public String getJob_description() {
+        return job_description;
+    }
+
+    public void setJob_description(String job_description) {
+        this.job_description = job_description;
     }
 
     @Basic

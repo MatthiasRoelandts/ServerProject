@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.entity.OwnerEntity;
 import com.example.entity.RestaurantEntity;
+import com.example.entity.WaiterEntity;
 import com.example.repository.BusinessRepository;
 import com.example.repository.OwnerRepository;
 import com.example.repository.UserRepository;
@@ -72,5 +73,20 @@ public class BusinessServiceController {
             e.printStackTrace();
             return new ResponseEntity(null,HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @RequestMapping(value = "business/{business_id}/personnel",method = RequestMethod.GET)
+    public ResponseEntity getPersonnelOfBusiness(@PathVariable Integer business_id){
+        List<WaiterEntity> personnelList = null;
+        try {
+            RestaurantEntity business = businessRepository.findOne(business_id);
+            personnelList = business.getPersonnel();
+            return new ResponseEntity(personnelList,HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(null,HttpStatus.NOT_FOUND);
+        }
+
+
     }
 }

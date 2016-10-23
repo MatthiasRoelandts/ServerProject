@@ -4,8 +4,11 @@ import com.example.security.JwtAuthenticationEntryPoint;
 import com.example.security.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,6 +19,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
+
+import java.util.Properties;
 
 
 /**
@@ -26,6 +32,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@ComponentScan(basePackages = "com.example")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
@@ -59,6 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                 .antMatchers(
                         HttpMethod.GET,
+                        "/templates/personnel_mail",
                         "/",
                         "/favicon.ico",
                         ".*.html",
@@ -76,6 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         //disable page cashing
 
     }
+
 
 
 }
