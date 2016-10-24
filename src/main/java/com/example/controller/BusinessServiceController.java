@@ -73,4 +73,39 @@ public class BusinessServiceController {
             return new ResponseEntity(null,HttpStatus.BAD_REQUEST);
         }
     }
+
+    @RequestMapping(value = "/business/update",method = RequestMethod.POST)
+    public ResponseEntity<RestaurantEntity> updateBusiness(@RequestBody RestaurantEntity business){
+
+        /*System.out.println("The owner email is" + business.getOwnerEmail());
+        String ownerEmail = business.getOwnerEmail();
+        OwnerEntity owner = ownerRepository.findUserByEmail(ownerEmail);
+        business.setOwnerId(owner.getId());
+        business.setCategoryRestaurantId(1);
+        List<RestaurantEntity> rList;
+        rList = owner.getBusinesses();
+        rList.add(business);
+        owner.setBusinesses(rList);*/
+
+        try {
+            businessRepository.save(business);
+            businessRepository.flush();
+            return new ResponseEntity(business,HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/business/delete",method = RequestMethod.POST)
+    public ResponseEntity deleteBusiness(@RequestBody RestaurantEntity business){
+        try {
+            businessRepository.delete(business);
+            return new ResponseEntity(HttpStatus.ACCEPTED);
+        } catch (Exception ex) {
+            System.out.println("error deleting!!!!!!");
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
+    }
 }

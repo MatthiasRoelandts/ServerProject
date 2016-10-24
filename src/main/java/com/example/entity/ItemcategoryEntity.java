@@ -6,7 +6,8 @@ import javax.persistence.*;
  * Created by matth on 10/10/2016.
  */
 @Entity
-@Table(name = "itemcategory", schema = "mydb", catalog = "")
+@NamedQuery(name = "findByRestaurantId", query = "SELECT e FROM ItemcategoryEntity e WHERE e.restaurantId = ?1")
+@Table(name = "itemcategory", schema = "mydb")
 public class ItemcategoryEntity {
 
     @Id
@@ -15,6 +16,9 @@ public class ItemcategoryEntity {
     private int id;
 
     private String name;
+
+    @Column(name = "restaurant_id")
+    private int restaurantId;
 
     public int getId() {
         return id;
@@ -32,6 +36,14 @@ public class ItemcategoryEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(int restaurant_id) {
+        this.restaurantId = restaurant_id;
     }
 
     @Override

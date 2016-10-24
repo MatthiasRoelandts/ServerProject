@@ -66,9 +66,9 @@ public class MenuServiceController {
         }
     }
 
-    @RequestMapping(value = "/ItemCategory/all", method = RequestMethod.GET)
-    public ResponseEntity<List<ItemcategoryEntity>> getAllItemCategories() {
-        List<ItemcategoryEntity> entityList = itemCategoryRepository.findAll();
+    @RequestMapping(value = "/ItemCategory/all/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<ItemcategoryEntity>> getAllItemCategories(@PathVariable Integer id) {
+        List<ItemcategoryEntity> entityList = itemCategoryRepository.findByRestaurantId(id);
         return new ResponseEntity<>(entityList, HttpStatus.OK);
     }
 
