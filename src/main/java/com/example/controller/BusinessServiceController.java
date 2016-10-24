@@ -58,6 +58,7 @@ public class BusinessServiceController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
+
     /*
     * Get's the businesses for a particular owner*/
     @RequestMapping(value = "/getbusinesses",method = RequestMethod.GET)
@@ -108,4 +109,29 @@ public class BusinessServiceController {
         }
 
     }
+
+    @RequestMapping(value = "business/{id}/personnel", method = RequestMethod.GET)
+    public ResponseEntity getPersonnelOfBusiness(@PathVariable Integer id) {
+        List<WaiterEntity> personnelList = null;
+        try {
+            RestaurantEntity business = businessRepository.findOne(id);
+            personnelList = business.getPersonnelList();
+            return new ResponseEntity(personnelList, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "business/category", method = RequestMethod.GET)
+    public ResponseEntity getBusinessCategories() {
+        try {
+            List<CategoryrestaurantEntity> categoryrestaurantList = businessCategoryRepository.findAll();
+            return new ResponseEntity(categoryrestaurantList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
 }
