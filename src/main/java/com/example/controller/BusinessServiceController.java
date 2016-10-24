@@ -1,8 +1,10 @@
 package com.example.controller;
 
+import com.example.entity.CategoryrestaurantEntity;
 import com.example.entity.OwnerEntity;
 import com.example.entity.RestaurantEntity;
 import com.example.entity.WaiterEntity;
+import com.example.repository.BusinessCategoryRepository;
 import com.example.repository.BusinessRepository;
 import com.example.repository.OwnerRepository;
 import com.example.repository.UserRepository;
@@ -26,18 +28,21 @@ public class BusinessServiceController {
 
     private OwnerRepository ownerRepository;
     private BusinessRepository businessRepository;
+    private BusinessCategoryRepository businessCategoryRepository;
 
     @Autowired
-    public BusinessServiceController(OwnerRepository ownerRepository, BusinessRepository businessRepository) {
+    public BusinessServiceController(OwnerRepository ownerRepository, BusinessRepository businessRepository, BusinessCategoryRepository businessCategoryRepository) {
+
         this.ownerRepository = ownerRepository;
         this.businessRepository = businessRepository;
+        this.businessCategoryRepository = businessCategoryRepository;
     }
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @RequestMapping(value = "/addbusiness",method = RequestMethod.POST)
-    public ResponseEntity<RestaurantEntity> addBusiness(@RequestBody RestaurantEntity business){
+    @RequestMapping(value = "/addbusiness", method = RequestMethod.POST)
+    public ResponseEntity<RestaurantEntity> addBusiness(@RequestBody RestaurantEntity business) {
 
         System.out.println("The owner email is" + business.getOwnerEmail());
         String ownerEmail = business.getOwnerEmail();
@@ -52,41 +57,52 @@ public class BusinessServiceController {
         try {
             businessRepository.save(business);
             businessRepository.flush();
-            return new ResponseEntity(business,HttpStatus.CREATED);
+            return new ResponseEntity(business, HttpStatus.CREATED);
 
         } catch (RestClientException e) {
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
+
     /*
     * Get's the businesses for a particular owner*/
-    @RequestMapping(value = "/getbusinesses",method = RequestMethod.GET)
-    public ResponseEntity getBusinesses(@RequestHeader(value = "Authorization") String token){
+    @RequestMapping(value = "/getbusinesses", method = RequestMethod.GET)
+    public ResponseEntity getBusinesses(@RequestHeader(value = "Authorization") String token) {
 
         List<RestaurantEntity> businessesList = null;
         try {
             OwnerEntity owner = ownerRepository.findUserByEmail(jwtTokenUtil.getUsernameFromToken(token));
             businessesList = owner.getBusinesses();
-            return new ResponseEntity(businessesList,HttpStatus.ACCEPTED);
+            return new ResponseEntity(businessesList, HttpStatus.ACCEPTED);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity(null,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
         }
     }
 
-    @RequestMapping(value = "business/{business_id}/personnel",method = RequestMethod.GET)
-    public ResponseEntity getPersonnelOfBusiness(@PathVariable Integer business_id){
+    @RequestMapping(value = "business/{id}/personnel", method = RequestMethod.GET)
+    public ResponseEntity getPersonnelOfBusiness(@PathVariable Integer id) {
         List<WaiterEntity> personnelList = null;
         try {
-            RestaurantEntity business = businessRepository.findOne(business_id);
-            personnelList = business.getPersonnel();
-            return new ResponseEntity(personnelList,HttpStatus.OK);
+            RestaurantEntity business = businessRepository.findOne(id);
+            personnelList = business.getPersonnelList();
+            return new ResponseEntity(personnelList, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity(null,HttpStatus.NOT_FOUND);
+            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "business/category", method = RequestMethod.GET)
+    public ResponseEntity getBusinessCategories() {
+        try {
+            List<CategoryrestaurantEntity> categoryrestaurantList = businessCategoryRepository.findAll();
+            return new ResponseEntity(categoryrestaurantList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
 
-
     }
+
 }

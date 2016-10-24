@@ -1,7 +1,5 @@
 package com.example.entity;
 
-import com.sun.deploy.util.Waiter;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -21,6 +19,12 @@ public class RestaurantEntity implements Serializable{
     private String city;
     private Integer postal;
     private Integer rating;
+
+    private boolean tables;
+    private boolean reservations;
+    private boolean personnel;
+    private boolean kitchen;
+
     private int categoryRestaurantId;
     private int ownerId;
 
@@ -99,6 +103,46 @@ public class RestaurantEntity implements Serializable{
         this.rating = rating;
     }
 
+
+    @Basic
+    @Column(name = "tables",columnDefinition = "BIT")
+    public boolean isTables() {
+        return tables;
+    }
+
+    public void setTables(boolean tables) {
+        this.tables = tables;
+    }
+
+    @Column(name = "personnel",columnDefinition = "BIT")
+    public boolean isPersonnel() {
+        return personnel;
+    }
+
+    public void setPersonnel(boolean personnel) {
+        this.personnel = personnel;
+    }
+
+
+    @Column(name = "kitchen",columnDefinition = "BIT")
+    public boolean isKitchen() {
+        return kitchen;
+    }
+
+    public void setKitchen(boolean kitchen) {
+        this.kitchen = kitchen;
+    }
+
+    @Basic
+    @Column(name = "reservations",columnDefinition = "BIT")
+    public boolean isReservations() {
+        return reservations;
+    }
+
+    public void setReservations(boolean reservations) {
+        this.reservations = reservations;
+    }
+
     @Basic
     @Column(name = "category_restaurant_id")
     public int getCategoryRestaurantId() {
@@ -130,11 +174,11 @@ public class RestaurantEntity implements Serializable{
 
     @OneToMany
     @JoinColumn(name="restaurant_id", referencedColumnName="id")
-    public List<WaiterEntity> getPersonnel(){
+    public List<WaiterEntity> getPersonnelList(){
         return personel;
     }
 
-    public void setPersonnel(List<WaiterEntity> personel){
+    public void setPersonnelList(List<WaiterEntity> personel){
         this.personel = personel;
     }
 

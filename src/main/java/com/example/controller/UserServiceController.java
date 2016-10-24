@@ -78,9 +78,9 @@ public class UserServiceController {
         personnel.setPassword(passwordEncoder.encode(uncoded_password));
         RestaurantEntity business = businessRepository.findOne(personnel.getRestaurant_id());
         List<WaiterEntity> pList;
-        pList = business.getPersonnel();
+        pList = business.getPersonnelList();
         pList.add(personnel);
-        business.setPersonnel(pList);
+        business.setPersonnelList(pList);
         System.out.println("The name of added is " + personnel.getName());
 
         //instantiate the mail object
